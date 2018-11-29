@@ -1,0 +1,109 @@
+\hypertarget{graphcommands_8h}{}\section{graphcommands.\+h File Reference}
+\label{graphcommands_8h}\index{graphcommands.\+h@{graphcommands.\+h}}
+
+
+C library for implementation of Graph commands(check for adjacency, bfs sorting)  
+
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structa__list__node}{a\+\_\+list\+\_\+node}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{graphcommands_8h_ac90383deea714795b9052611f14fcd99}{is\+\_\+adjacent} (struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int node1, int node2)
+\item 
+void \hyperlink{graphcommands_8h_af6cd4b78e9b7b93146fae38d681716fb}{push\+\_\+begining\+\_\+list} (struct \hyperlink{structa__list__node}{a\+\_\+list\+\_\+node} $\ast$head, int new\+\_\+element\+\_\+value)
+\item 
+int \hyperlink{graphcommands_8h_ab76870444edc8084641fa222cf75f04f}{pop\+\_\+end\+\_\+list} (struct \hyperlink{structa__list__node}{a\+\_\+list\+\_\+node} $\ast$head)
+\item 
+void \hyperlink{graphcommands_8h_aaf7434b9e547cc1dc7e7064a56c4ca52}{graph\+\_\+bfs} (struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int start\+\_\+node, int $\ast$bfs\+\_\+order\+\_\+vector)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+C library for implementation of Graph commands(check for adjacency, bfs sorting) 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{graphcommands_8h_aaf7434b9e547cc1dc7e7064a56c4ca52}\label{graphcommands_8h_aaf7434b9e547cc1dc7e7064a56c4ca52}} 
+\index{graphcommands.\+h@{graphcommands.\+h}!graph\+\_\+bfs@{graph\+\_\+bfs}}
+\index{graph\+\_\+bfs@{graph\+\_\+bfs}!graphcommands.\+h@{graphcommands.\+h}}
+\subsubsection{\texorpdfstring{graph\+\_\+bfs()}{graph\_bfs()}}
+{\footnotesize\ttfamily void graph\+\_\+bfs (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph,  }\item[{int}]{start\+\_\+node,  }\item[{int $\ast$}]{bfs\+\_\+order\+\_\+vector }\end{DoxyParamCaption})}
+
+Order the graph nodes in a Breadth-\/first manner
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$my\+\_\+graph} & The graph \\
+\hline
+{\em start\+\_\+node} & The node that we consider as a \char`\"{}head\char`\"{} \\
+\hline
+{\em $\ast$bfs\+\_\+order\+\_\+vector} & A vector that\textquotesingle{}s gonna store the order in which bfs crosses the graph\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 89 of file graphcommands.\+c.
+
+\mbox{\Hypertarget{graphcommands_8h_ac90383deea714795b9052611f14fcd99}\label{graphcommands_8h_ac90383deea714795b9052611f14fcd99}} 
+\index{graphcommands.\+h@{graphcommands.\+h}!is\+\_\+adjacent@{is\+\_\+adjacent}}
+\index{is\+\_\+adjacent@{is\+\_\+adjacent}!graphcommands.\+h@{graphcommands.\+h}}
+\subsubsection{\texorpdfstring{is\+\_\+adjacent()}{is\_adjacent()}}
+{\footnotesize\ttfamily int is\+\_\+adjacent (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph,  }\item[{int}]{node1,  }\item[{int}]{node2 }\end{DoxyParamCaption})}
+
+Check if two nodes are adjacent
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$my\+\_\+graph} & Pointer to our graph \\
+\hline
+{\em node1} & First node \\
+\hline
+{\em node2} & Second node\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 9 of file graphcommands.\+c.
+
+\mbox{\Hypertarget{graphcommands_8h_ab76870444edc8084641fa222cf75f04f}\label{graphcommands_8h_ab76870444edc8084641fa222cf75f04f}} 
+\index{graphcommands.\+h@{graphcommands.\+h}!pop\+\_\+end\+\_\+list@{pop\+\_\+end\+\_\+list}}
+\index{pop\+\_\+end\+\_\+list@{pop\+\_\+end\+\_\+list}!graphcommands.\+h@{graphcommands.\+h}}
+\subsubsection{\texorpdfstring{pop\+\_\+end\+\_\+list()}{pop\_end\_list()}}
+{\footnotesize\ttfamily int pop\+\_\+end\+\_\+list (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__list__node}{a\+\_\+list\+\_\+node} $\ast$}]{head }\end{DoxyParamCaption})}
+
+Pop element from the end of the list
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$head} & The head of the list\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 54 of file graphcommands.\+c.
+
+\mbox{\Hypertarget{graphcommands_8h_af6cd4b78e9b7b93146fae38d681716fb}\label{graphcommands_8h_af6cd4b78e9b7b93146fae38d681716fb}} 
+\index{graphcommands.\+h@{graphcommands.\+h}!push\+\_\+begining\+\_\+list@{push\+\_\+begining\+\_\+list}}
+\index{push\+\_\+begining\+\_\+list@{push\+\_\+begining\+\_\+list}!graphcommands.\+h@{graphcommands.\+h}}
+\subsubsection{\texorpdfstring{push\+\_\+begining\+\_\+list()}{push\_begining\_list()}}
+{\footnotesize\ttfamily void push\+\_\+begining\+\_\+list (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__list__node}{a\+\_\+list\+\_\+node} $\ast$}]{head,  }\item[{int}]{new\+\_\+element\+\_\+value }\end{DoxyParamCaption})}
+
+Push element at the begining of the list
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$head} & The head of the list \\
+\hline
+{\em new\+\_\+element\+\_\+value} & New element value\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 29 of file graphcommands.\+c.
+

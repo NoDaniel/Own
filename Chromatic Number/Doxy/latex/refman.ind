@@ -1,0 +1,85 @@
+\begin{theindex}
+
+  \item {a\+\_\+graph}, \hyperpage{7}
+    \subitem {is\+\_\+initialized}, \hyperpage{7}
+    \subitem {number\+\_\+of\+\_\+nodes}, \hyperpage{7}
+  \item {a\+\_\+list\+\_\+node}, \hyperpage{8}
+
+  \indexspace
+
+  \item {coloring\+Algorithms.\+c}, \hyperpage{9}
+  \item {coloring\+Algorithms.\+h}, \hyperpage{9}
+    \subitem {find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic}, 
+		\hyperpage{10}
+    \subitem {find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs}, 
+		\hyperpage{10}
+    \subitem {graph\+\_\+coloring\+\_\+backtracking}, \hyperpage{10}
+    \subitem {graph\+\_\+coloring\+\_\+tool}, \hyperpage{11}
+    \subitem {print\+\_\+solution}, \hyperpage{11}
+
+  \indexspace
+
+  \item {find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic}
+    \subitem {coloring\+Algorithms.\+h}, \hyperpage{10}
+  \item {find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs}
+    \subitem {coloring\+Algorithms.\+h}, \hyperpage{10}
+
+  \indexspace
+
+  \item {graph\+\_\+bfs}
+    \subitem {graphcommands.\+h}, \hyperpage{12}
+  \item {graph\+\_\+coloring\+\_\+backtracking}
+    \subitem {coloring\+Algorithms.\+h}, \hyperpage{10}
+  \item {graph\+\_\+coloring\+\_\+tool}
+    \subitem {coloring\+Algorithms.\+h}, \hyperpage{11}
+  \item {graphcommands.\+c}, \hyperpage{12}
+  \item {graphcommands.\+h}, \hyperpage{12}
+    \subitem {graph\+\_\+bfs}, \hyperpage{12}
+    \subitem {is\+\_\+adjacent}, \hyperpage{13}
+    \subitem {pop\+\_\+end\+\_\+list}, \hyperpage{13}
+    \subitem {push\+\_\+begining\+\_\+list}, \hyperpage{13}
+
+  \indexspace
+
+  \item {iograph.\+c}, \hyperpage{15}
+  \item {iograph.\+h}, \hyperpage{15}
+    \subitem {non\+\_\+trivial\+\_\+graph\+\_\+generator}, 
+		\hyperpage{15}
+    \subitem {print\+\_\+graph}, \hyperpage{16}
+    \subitem {read\+\_\+graph}, \hyperpage{16}
+    \subitem {read\+\_\+graph\+\_\+file}, \hyperpage{16}
+  \item {is\+\_\+adjacent}
+    \subitem {graphcommands.\+h}, \hyperpage{13}
+  \item {is\+\_\+initialized}
+    \subitem {a\+\_\+graph}, \hyperpage{7}
+
+  \indexspace
+
+  \item {main.\+c}, \hyperpage{17}
+
+  \indexspace
+
+  \item {non\+\_\+trivial\+\_\+graph\+\_\+generator}
+    \subitem {iograph.\+h}, \hyperpage{15}
+  \item {number\+\_\+of\+\_\+nodes}
+    \subitem {a\+\_\+graph}, \hyperpage{7}
+
+  \indexspace
+
+  \item {pop\+\_\+end\+\_\+list}
+    \subitem {graphcommands.\+h}, \hyperpage{13}
+  \item {print\+\_\+graph}
+    \subitem {iograph.\+h}, \hyperpage{16}
+  \item {print\+\_\+solution}
+    \subitem {coloring\+Algorithms.\+h}, \hyperpage{11}
+  \item {push\+\_\+begining\+\_\+list}
+    \subitem {graphcommands.\+h}, \hyperpage{13}
+
+  \indexspace
+
+  \item {read\+\_\+graph}
+    \subitem {iograph.\+h}, \hyperpage{16}
+  \item {read\+\_\+graph\+\_\+file}
+    \subitem {iograph.\+h}, \hyperpage{16}
+
+\end{theindex}

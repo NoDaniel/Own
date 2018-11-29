@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1528027813 source:d:\users\daniel\documents\github\chromatic-number\graphcommands.c
+	<stdio.h>
+	"iograph.h"
+	"graphcommands.h"
+
+1528047898 d:\users\daniel\documents\github\chromatic-number\iograph.h
+
+1526286969 d:\users\daniel\documents\github\chromatic-number\graphcommands.h
+
+1528047812 source:d:\users\daniel\documents\github\chromatic-number\iograph.c
+	<stdio.h>
+	"iograph.h"
+
+1528035751 source:d:\users\daniel\documents\github\chromatic-number\coloringalgorithms.c
+	<stdio.h>
+	"iograph.h"
+	"graphcommands.h"
+	"coloringAlgorithms.h"
+
+1528046823 source:d:\users\daniel\documents\github\chromatic-number\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"iograph.h"
+	"graphcommands.h"
+	"coloringAlgorithms.h"
+
+1528026825 d:\users\daniel\documents\github\chromatic-number\coloringalgorithms.h
+

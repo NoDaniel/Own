@@ -1,0 +1,134 @@
+\hypertarget{coloring_algorithms_8h}{}\section{coloring\+Algorithms.\+h File Reference}
+\label{coloring_algorithms_8h}\index{coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}}
+
+
+C library for implementation of diferent algorithms of Graph Coloring.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{coloring_algorithms_8h_a5d98cb956e1d2233d0c024c3afc90f26}{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic} (struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph)
+\item 
+void \hyperlink{coloring_algorithms_8h_a900f8815d67e198547be456a3e2647a2}{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs} (struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int $\ast$bfs\+\_\+order\+\_\+vector)
+\item 
+void \hyperlink{coloring_algorithms_8h_a9fab9264bd23499c45608bc13cd85598}{print\+\_\+solution} (int $\ast$colors, struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int $\ast$bfs\+\_\+order\+\_\+vector)
+\item 
+\mbox{\Hypertarget{coloring_algorithms_8h_a48d8cc8b152bc86296653a84743d4182}\label{coloring_algorithms_8h_a48d8cc8b152bc86296653a84743d4182}} 
+int {\bfseries is\+\_\+safe} (int node, struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int $\ast$colors, int c, int $\ast$bfs\+\_\+order\+\_\+vector)
+\item 
+int \hyperlink{coloring_algorithms_8h_a6f2f7b6e09cfd619abc49b82b96dbf4b}{graph\+\_\+coloring\+\_\+tool} (struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int m, int $\ast$colors, int node, int $\ast$bfs\+\_\+order\+\_\+vector)
+\item 
+int \hyperlink{coloring_algorithms_8h_ae1355264cfbf690f34c1c37ed17ebd72}{graph\+\_\+coloring\+\_\+backtracking} (struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$my\+\_\+graph, int m, int $\ast$bfs\+\_\+order\+\_\+vector)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+C library for implementation of diferent algorithms of Graph Coloring. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{coloring_algorithms_8h_a5d98cb956e1d2233d0c024c3afc90f26}\label{coloring_algorithms_8h_a5d98cb956e1d2233d0c024c3afc90f26}} 
+\index{coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}!find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic@{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic}}
+\index{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic@{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic}!coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}}
+\subsubsection{\texorpdfstring{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic()}{find\_color\_greedy\_alg\_basic()}}
+{\footnotesize\ttfamily void find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+basic (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph }\end{DoxyParamCaption})}
+
+Colors the graph and prints the colors, using the greedy algorithm A greedy algorithm is an algorithmic paradigm that follows the problem solving heuristic of making the locally optimal choice at each stage with the hope of finding a global optimum
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$my\+\_\+graph} & Pointer to our graph\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file coloring\+Algorithms.\+c.
+
+\mbox{\Hypertarget{coloring_algorithms_8h_a900f8815d67e198547be456a3e2647a2}\label{coloring_algorithms_8h_a900f8815d67e198547be456a3e2647a2}} 
+\index{coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}!find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs@{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs}}
+\index{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs@{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs}!coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}}
+\subsubsection{\texorpdfstring{find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs()}{find\_color\_greedy\_alg\_with\_bfs()}}
+{\footnotesize\ttfamily void find\+\_\+color\+\_\+greedy\+\_\+alg\+\_\+with\+\_\+bfs (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph,  }\item[{int $\ast$}]{bfs\+\_\+order\+\_\+vector }\end{DoxyParamCaption})}
+
+Colors the graph and prints the colors, using the greedy algorithm A greedy algorithm is an algorithmic paradigm that follows the problem solving heuristic of making the locally optimal choice at each stage with the hope of finding a global optimum
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$my\+\_\+graph} & Pointer to our graph \\
+\hline
+{\em $\ast$bfs\+\_\+order\+\_\+vector} & B\+FS order of our graph\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 60 of file coloring\+Algorithms.\+c.
+
+\mbox{\Hypertarget{coloring_algorithms_8h_ae1355264cfbf690f34c1c37ed17ebd72}\label{coloring_algorithms_8h_ae1355264cfbf690f34c1c37ed17ebd72}} 
+\index{coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}!graph\+\_\+coloring\+\_\+backtracking@{graph\+\_\+coloring\+\_\+backtracking}}
+\index{graph\+\_\+coloring\+\_\+backtracking@{graph\+\_\+coloring\+\_\+backtracking}!coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}}
+\subsubsection{\texorpdfstring{graph\+\_\+coloring\+\_\+backtracking()}{graph\_coloring\_backtracking()}}
+{\footnotesize\ttfamily int graph\+\_\+coloring\+\_\+backtracking (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph,  }\item[{int}]{m,  }\item[{int $\ast$}]{bfs\+\_\+order\+\_\+vector }\end{DoxyParamCaption})}
+
+This functions solves the coloring problem using backtracking, mainly by using the tool created before If the problem can be solved with \textquotesingle{}m\textquotesingle{} or less colors, then it returns true and prints the solution, if not, it returns false
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$my\+\_\+graph} & Pointer to our graph \\
+\hline
+{\em m} & The number of colors we try to color our graph with \\
+\hline
+{\em bfs\+\_\+order\+\_\+vector} & B\+FS order of our graph\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 215 of file coloring\+Algorithms.\+c.
+
+\mbox{\Hypertarget{coloring_algorithms_8h_a6f2f7b6e09cfd619abc49b82b96dbf4b}\label{coloring_algorithms_8h_a6f2f7b6e09cfd619abc49b82b96dbf4b}} 
+\index{coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}!graph\+\_\+coloring\+\_\+tool@{graph\+\_\+coloring\+\_\+tool}}
+\index{graph\+\_\+coloring\+\_\+tool@{graph\+\_\+coloring\+\_\+tool}!coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}}
+\subsubsection{\texorpdfstring{graph\+\_\+coloring\+\_\+tool()}{graph\_coloring\_tool()}}
+{\footnotesize\ttfamily int graph\+\_\+coloring\+\_\+tool (\begin{DoxyParamCaption}\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph,  }\item[{int}]{m,  }\item[{int $\ast$}]{colors,  }\item[{int}]{node,  }\item[{int $\ast$}]{bfs\+\_\+order\+\_\+vector }\end{DoxyParamCaption})}
+
+Solving the
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$my\+\_\+graph} & Pointer to our graph \\
+\hline
+{\em m} & The number of colors we try to color our graph with \\
+\hline
+{\em $\ast$colors} & Vector to store the colors \\
+\hline
+{\em node} & Current node \\
+\hline
+{\em bfs\+\_\+order\+\_\+vector} & B\+FS order of our graph\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 178 of file coloring\+Algorithms.\+c.
+
+\mbox{\Hypertarget{coloring_algorithms_8h_a9fab9264bd23499c45608bc13cd85598}\label{coloring_algorithms_8h_a9fab9264bd23499c45608bc13cd85598}} 
+\index{coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}!print\+\_\+solution@{print\+\_\+solution}}
+\index{print\+\_\+solution@{print\+\_\+solution}!coloring\+Algorithms.\+h@{coloring\+Algorithms.\+h}}
+\subsubsection{\texorpdfstring{print\+\_\+solution()}{print\_solution()}}
+{\footnotesize\ttfamily print\+\_\+solution (\begin{DoxyParamCaption}\item[{int $\ast$}]{colors,  }\item[{struct \hyperlink{structa__graph}{a\+\_\+graph} $\ast$}]{my\+\_\+graph,  }\item[{int $\ast$}]{bfs\+\_\+order\+\_\+vector }\end{DoxyParamCaption})}
+
+Print solution
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$colors} & Vector to store the colors \\
+\hline
+{\em $\ast$my\+\_\+graph} & Pointer to our graph \\
+\hline
+{\em bfs\+\_\+order\+\_\+vector} & B\+FS order of our graph\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 117 of file coloring\+Algorithms.\+c.
+
