@@ -49,10 +49,13 @@ BigNumber::BigNumber(string nr) {
 		}
 	}
 
+	//Construct the number from mantis and exponent for normal representation
+	//We add to the number all the elements of the mantis
 	for (auto it = mantis.begin(); it != mantis.end(); it++) {
 		number.push_back(*it);
 	}
 
+	//And we add 0's acordingly to the exponent
 	for (int i = 0; i < exp; i++) {
 		number.push_back(0);
 	}
