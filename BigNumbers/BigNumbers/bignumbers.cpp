@@ -142,13 +142,13 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 	}
 
 	if ((nr1.sign == '+' && nr2.sign == '+') || (nr1.sign == '-' && nr2.sign == '-')) {
-		auto it1 = nr1.number.end() - 1;
-		auto it2 = nr2.number.end() - 1;
+		auto it1 = nr1.number.rbegin();
+		auto it2 = nr2.number.rbegin();
 		int carry = 0;
-		while (it1 != nr1.number.begin() && it2 != nr2.number.begin()) {
+		while (it1 != nr1.number.rend() && it2 != nr2.number.rend()) {
 
 			this->number.push_front((*it1 + *it2 + carry) % 10);
-			if ((*it1 + *it2 + carry) / 10 >= 0) {
+			if ((*it1 + *it2 + carry) / 10 > 0) {
 				carry = 1;
 			}
 			else {
@@ -156,37 +156,28 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 			}
 
 
-			it1--;
-			it2--;
+			it1++;
+			it2++;
 		}	
-		///////
-		this->number.push_front((*it1 + *it2 + carry) % 10);
-		if ((*it1 + *it2 + carry) / 10) {
-			carry = 1;
-		}
-		else {
-			carry = 0;
-		}
-		///////
 		if (nr1.number.size() > nr2.number.size()) {
-			while (it1 != nr1.number.begin()) {
-				it1--;
+			while (it1 != nr1.number.rend()) {
 				this->number.push_front(*it1 + carry);
 				carry = 0;
+				it1++;
 			}
 		}else if (nr1.number.size() < nr2.number.size()) {
-			while (it2 != nr2.number.begin()) {
-				it2--;
+			while (it2 != nr2.number.rend()) {
 				this->number.push_front(*it2 + carry);
 				carry = 0;
+				it2++;
 			}
 		}
 	}
 	else if (bigger == 1) {
-		auto it1 = nr1.number.end() - 1;
-		auto it2 = nr2.number.end() - 1;
+		auto it1 = nr1.number.rbegin();
+		auto it2 = nr2.number.rbegin();
 		int borrow = 0;
-		while (it1 != nr1.number.begin() && it2 != nr2.number.begin()) {
+		while (it1 != nr1.number.rend() && it2 != nr2.number.rend()) {
 
 			if (*it1 - borrow >= *it2) {
 				this->number.push_front(*it1 - *it2 - borrow);
@@ -197,31 +188,22 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 				borrow = 1;
 			}
 
-			it1--;
-			it2--;
+			it1++;
+			it2++;
 		}
-		//////
-		if (*it1 - borrow >= *it2) {
-			this->number.push_front(*it1 - *it2 - borrow);
-			borrow = 0;
-		}
-		else if (*it1 - borrow < *it2) {
-			this->number.push_front((*it1 + 10) - *it2 - borrow);
-			borrow = 1;
-		}
-		//////
-		while (it1 != nr1.number.begin()) {
-			it1--;
+
+		while (it1 != nr1.number.rend()) {
 			this->number.push_front(*it1 - borrow);
 			borrow = 0;
+			it1++;
 		}
 
 	}
 	else if (bigger == 2) {
-		auto it1 = nr1.number.end() - 1;
-		auto it2 = nr2.number.end() - 1;
+		auto it1 = nr1.number.rbegin();
+		auto it2 = nr2.number.rbegin();
 		int borrow = 0;
-		while (it1 != nr1.number.begin() && it2 != nr2.number.begin()) {
+		while (it1 != nr1.number.rend() && it2 != nr2.number.rend()) {
 
 			if (*it2 - borrow >= *it1) {
 				this->number.push_front(*it2 - *it1 - borrow);
@@ -232,23 +214,13 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 				borrow = 1;
 			}
 
-			it1--;
-			it2--;
+			it1++;
+			it2++;
 		}
-		//////
-		if (*it2 - borrow >= *it1) {
-			this->number.push_front(*it2 - *it1 - borrow);
-			borrow = 0;
-		}
-		else if (*it2 - borrow < *it1) {
-			this->number.push_front((*it2 + 10) - *it1 - borrow);
-			borrow = 1;
-		}
-		//////
-		while (it2 != nr2.number.begin()) {
-			it2--;
+		while (it2 != nr2.number.rend()) {
 			this->number.push_front(*it2 - borrow);
 			borrow = 0;
+			it2++;
 		}
 
 	}
