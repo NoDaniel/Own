@@ -104,7 +104,7 @@ void BigNumber::print_scientific() {
 	cout << endl;
 }
 
-const deque<int> &BigNumber::getnumber(){
+const deque<int> &BigNumber::getnumber() const{
 	return number;
 }
 
@@ -246,7 +246,7 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 	return *this;
 }
 
-BigNumber &operator+(BigNumber &nr1, BigNumber &nr2){
+BigNumber operator+(BigNumber const& nr1, BigNumber const& nr2){
 
 	int bigger;
 	BigNumber nr;
@@ -304,72 +304,72 @@ BigNumber &operator+(BigNumber &nr1, BigNumber &nr2){
 			it1++;
 			it2++;
 		}
-		//if (nr1.getnumber().size() > nr2.getnumber().size()) {
-		//	while (it1 != nr1.setnumber().rend()) {
-		//		nr.setnumber().push_front(*it1 + carry);
-		//		carry = 0;
-		//		it1++;
-		//	}
-		//}
-		//else if (nr1.getnumber().size() < nr2.getnumber().size()) {
-		//	while (it2 != nr2.setnumber().rend()) {
-		//		nr.setnumber().push_front(*it2 + carry);
-		//		carry = 0;
-		//		it2++;
-		//	}
-		//}
+		if (nr1.getnumber().size() > nr2.getnumber().size()) {
+			while (it1 != nr1.getnumber().rend()) {
+				nr.setnumber().push_front(*it1 + carry);
+				carry = 0;
+				it1++;
+			}
+		}
+		else if (nr1.getnumber().size() < nr2.getnumber().size()) {
+			while (it2 != nr2.getnumber().rend()) {
+				nr.setnumber().push_front(*it2 + carry);
+				carry = 0;
+				it2++;
+			}
+		}
 	}
-	//else if (bigger == 1) {
-	//	auto it1 = nr1.setnumber().rbegin();
-	//	auto it2 = nr2.setnumber().rbegin();
-	//	int borrow = 0;
-	//	while (it1 != nr1.setnumber().rend() && it2 != nr2.setnumber().rend()) {
+	else if (bigger == 1) {
+		auto it1 = nr1.getnumber().rbegin();
+		auto it2 = nr2.getnumber().rbegin();
+		int borrow = 0;
+		while (it1 != nr1.getnumber().rend() && it2 != nr2.getnumber().rend()) {
 
-	//		if (*it1 - borrow >= *it2) {
-	//			nr.setnumber().push_front(*it1 - *it2 - borrow);
-	//			borrow = 0;
-	//		}
-	//		else if (*it1 - borrow < *it2) {
-	//			nr.setnumber().push_front((*it1 + 10) - *it2 - borrow);
-	//			borrow = 1;
-	//		}
+			if (*it1 - borrow >= *it2) {
+				nr.setnumber().push_front(*it1 - *it2 - borrow);
+				borrow = 0;
+			}
+			else if (*it1 - borrow < *it2) {
+				nr.setnumber().push_front((*it1 + 10) - *it2 - borrow);
+				borrow = 1;
+			}
 
-	//		it1++;
-	//		it2++;
-	//	}
+			it1++;
+			it2++;
+		}
 
-	//	while (it1 != nr1.setnumber().rend()) {
-	//		nr.setnumber().push_front(*it1 - borrow);
-	//		borrow = 0;
-	//		it1++;
-	//	}
+		while (it1 != nr1.getnumber().rend()) {
+			nr.setnumber().push_front(*it1 - borrow);
+			borrow = 0;
+			it1++;
+		}
 
-	//}
-	//else if (bigger == 2) {
-	//	auto it1 = nr1.setnumber().rbegin();
-	//	auto it2 = nr2.setnumber().rbegin();
-	//	int borrow = 0;
-	//	while (it1 != nr1.setnumber().rend() && it2 != nr2.setnumber().rend()) {
+	}
+	else if (bigger == 2) {
+		auto it1 = nr1.getnumber().rbegin();
+		auto it2 = nr2.getnumber().rbegin();
+		int borrow = 0;
+		while (it1 != nr1.getnumber().rend() && it2 != nr2.getnumber().rend()) {
 
-	//		if (*it2 - borrow >= *it1) {
-	//			nr.setnumber().push_front(*it2 - *it1 - borrow);
-	//			borrow = 0;
-	//		}
-	//		else if (*it2 - borrow < *it1) {
-	//			nr.setnumber().push_front((*it2 + 10) - *it1 - borrow);
-	//			borrow = 1;
-	//		}
+			if (*it2 - borrow >= *it1) {
+				nr.setnumber().push_front(*it2 - *it1 - borrow);
+				borrow = 0;
+			}
+			else if (*it2 - borrow < *it1) {
+				nr.setnumber().push_front((*it2 + 10) - *it1 - borrow);
+				borrow = 1;
+			}
 
-	//		it1++;
-	//		it2++;
-	//	}
-	//	while (it2 != nr2.setnumber().rend()) {
-	//		nr.setnumber().push_front(*it2 - borrow);
-	//		borrow = 0;
-	//		it2++;
-	//	}
+			it1++;
+			it2++;
+		}
+		while (it2 != nr2.getnumber().rend()) {
+			nr.setnumber().push_front(*it2 - borrow);
+			borrow = 0;
+			it2++;
+		}
 
-	//}
+	}
 
 	return nr;
 }
