@@ -5,12 +5,15 @@
 
 using namespace std;
 
+//Default constructor
 BigNumber::BigNumber() {
+	//General Presets
 	sign = '+';
 	exp = 0;
 	valid = 1;
 }
 
+//General Constructor
 BigNumber::BigNumber(string nr) {
 
 	//get the sign
@@ -28,25 +31,39 @@ BigNumber::BigNumber(string nr) {
 	valid = 1;
 	exp = 0;
 	int exponent = 0;
-	for ( ; i < nr.length(); i++) {
+	int counter = 0;
+	for (; i < nr.length(); i++) {
 		//check if the number is valid
-		if ((nr[i] > '9' || nr[i]  < '0') && nr[i] != 'e') {
+		if ((nr[i] > '9' || nr[i] < '0') && nr[i] != 'e') {
 			valid = 0;
 		}
 
 		//check if the number type is scientific, and it got to the exponent
-		if (nr[i] == 'e') {
+		if (nr[i] == 'e'){
 			exponent = 1;
+			int j = i - 1;
 			i++;
+			//Check how many zeroes there are before e
+			while (nr[j] == '0') {
+				counter++;
+				j--;
+			}
 		}
 
-		//register the number, or the exponent
+		//register the number, or the exponent 
 		if (exponent == 0) {
 			mantis.push_back(nr[i] - '0');
 		}
-		else {
+		else { 
 			exp = exp * 10 + (nr[i] - '0');
 		}
+	}
+	//Add the number of 0's from the mantis to the exp
+	exp += counter;
+	//Pop mantis 0's
+	while (counter) {
+		mantis.pop_back();
+		counter--;
 	}
 
 	//Construct the number from mantis and exponent for normal representation
@@ -60,18 +77,76 @@ BigNumber::BigNumber(string nr) {
 		number.push_back(0);
 	}
 
+	this->to_scientific();
+
 }
 
-int BigNumber::get_valid() { return valid; }
+//Type conversion constructor
+BigNumber::BigNumber(int nr) {
+	//Get the sign
+	if (nr >= 0) {
+		sign = '+';
+	}
+	else {
+		sign = '-';
+	}
 
-void BigNumber::print_normal() {
+	//Construct the std::vector from the int number
+	while (nr != 0) {
+		int c = nr % 10;
+		number.push_front(c);
+		nr /= 10;
+	}
+
+	exp = 0;
+	valid = 1;
+
+	to_scientific();
+
+}
+
+BigNumber::BigNumber(char ch) {
+	//For a char, the sign is always +
+	sign = '+';
+
+	//Convert from char to int
+	int nr = static_cast<int>(ch);
+	
+	//Construct
+	while (nr != 0) {
+		int c = nr % 10;
+		number.push_front(c);
+		nr /= 10;
+	}
+
+	exp = 0;
+	valid = 1;
+
+	to_scientific();
+
+}
+
+//Copy constructor
+BigNumber::BigNumber(BigNumber &n1) {
+	//Copy all the data
+	number = n1.number;
+	mantis = n1.mantis;
+	sign = n1.sign;
+	exp = n1.exp;
+	valid = n1.valid;
+
+}
+
+void BigNumber::print_normal() const {
 	
 	bool extra = true;
 
+	//We check the validity of the number
 	if (valid == 0) {
 		cout << "Imposible to print an invalid number \n";
 	}
 	else {
+		//Get the sign
 		if (sign == '-' || sign == '+') {
 			cout << sign;
 		}
@@ -88,20 +163,40 @@ void BigNumber::print_normal() {
 	cout << endl;
 }
 
-void BigNumber::print_scientific() {
+void BigNumber::print_scientific() const{
 
 	if (valid == 0) {
 		cout << "Imposible to print an invalid number \n";
 	}
-	else {
-		cout << sign;
-		for (auto it = mantis.begin(); it != mantis.end(); it++) {
-			cout << *it;
-		}
-		cout << "e" << exp;
+	
+	cout << sign;
+	for (auto it = mantis.begin(); it != mantis.end(); it++) {
+		cout << *it;
 	}
+	cout << "e" << exp;
+
 
 	cout << endl;
+}
+
+void BigNumber::to_scientific() {
+
+	if (exp == 0) {  // 12 00  = 12 -- 4 - 2 = 2
+		mantis.clear();
+		deque<int>::iterator it = number.begin();
+		deque<int>::iterator end = number.end();
+		while (*it != 0 && it != end) {
+			mantis.push_back(*it);
+			it++;
+		}
+
+		while (it != end) {
+			exp++;
+			it++;
+		}
+
+	}
+
 }
 
 const deque<int> &BigNumber::getnumber() const{
@@ -122,8 +217,11 @@ void BigNumber::setsign(char sgn) {
 
 BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 
+	//Value to store which number is bigger
 	int bigger;
 
+	//Get the bigger number, by checking, in order
+	//	-the largest number
 	if (nr1.number.size() > nr2.number.size()) {
 		this->sign = nr1.sign;
 		bigger = 1;
@@ -132,6 +230,7 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 		this->sign = nr1.sign;
 		bigger = 2;
 	}
+	//	-which number has the biggest first
 	else if (nr1.number.size() == nr2.number.size()) {
 		if (nr1.number[0] > nr2.number[0]) {
 			this->sign = nr1.sign;
@@ -141,6 +240,7 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 			this->sign = nr2.sign;
 			bigger = 2;
 		}
+		//	-if all of the above fails, the entire number
 		else if (nr1.number[0] == nr2.number[0]) {
 			auto it1 = nr1.number.begin();
 			auto it2 = nr2.number.begin();
@@ -148,10 +248,12 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 				if (*it1 > *it2) {
 					this->sign = nr1.sign;
 					bigger = 1;
+					break;
 				}
 				else if(*it1 < *it2){
 					this->sign = nr2.sign;
 					bigger = 2;
+					break;
 				}
 				it1++;
 				it2++;
@@ -159,6 +261,8 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 		}
 	}
 
+	//We have three cases for adding two numbers
+	//	-when we add two positives or two negatives, we just add the absolute value and the sign remains the same
 	if ((nr1.sign == '+' && nr2.sign == '+') || (nr1.sign == '-' && nr2.sign == '-')) {
 		auto it1 = nr1.number.rbegin();
 		auto it2 = nr2.number.rbegin();
@@ -190,7 +294,11 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 				it2++;
 			}
 		}
+		if (carry == 1) {
+			this->number.push_front(1);
+		}
 	}
+	//	-when the first one is bigger, substract from the first one the second one, and keep the first's sign
 	else if (bigger == 1) {
 		auto it1 = nr1.number.rbegin();
 		auto it2 = nr2.number.rbegin();
@@ -217,6 +325,7 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 		}
 
 	}
+	//	-when the second one is bigger, substract from the second one the first one, and keep the second's sign
 	else if (bigger == 2) {
 		auto it1 = nr1.number.rbegin();
 		auto it2 = nr2.number.rbegin();
@@ -251,6 +360,7 @@ BigNumber operator+(BigNumber const& nr1, BigNumber const& nr2){
 	int bigger;
 	BigNumber nr;
 
+	//For logic, see addition function
 	if (nr1.getnumber().size() > nr2.getnumber().size()) {
 		nr.setsign(nr1.getsign());
 		bigger = 1;
@@ -317,6 +427,9 @@ BigNumber operator+(BigNumber const& nr1, BigNumber const& nr2){
 				carry = 0;
 				it2++;
 			}
+		}
+		if (carry == 1) {
+			nr.setnumber().push_front(1);
 		}
 	}
 	else if (bigger == 1) {
