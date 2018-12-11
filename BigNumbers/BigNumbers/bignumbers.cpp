@@ -59,11 +59,23 @@ BigNumber::BigNumber(string nr) {
 		}
 	}
 	//Add the number of 0's from the mantis to the exp
-	exp += counter;
 	//Pop mantis 0's
-	while (counter) {
-		mantis.pop_back();
-		counter--;
+
+	if (exponent == 0) {
+		i = nr.length() - 1;
+		while (nr[i] == '0') {
+			mantis.pop_back();
+			exp++;
+			i--;
+		}
+	}
+	else {
+		exp += counter;
+		//Pop mantis 0's
+		while (counter) {
+			mantis.pop_back();
+			counter--;
+		}
 	}
 
 	//Construct the number from mantis and exponent for normal representation
@@ -76,8 +88,6 @@ BigNumber::BigNumber(string nr) {
 	for (int i = 0; i < exp; i++) {
 		number.push_back(0);
 	}
-
-	this->to_scientific();
 
 }
 
@@ -181,17 +191,18 @@ void BigNumber::print_scientific() const{
 
 void BigNumber::to_scientific() {
 
-	if (exp == 0) {  // 12 00  = 12 -- 4 - 2 = 2
+	if (exp == 0) { 
 		mantis.clear();
-		deque<int>::iterator it = number.begin();
-		deque<int>::iterator end = number.end();
-		while (*it != 0 && it != end) {
-			mantis.push_back(*it);
+		deque<int>::reverse_iterator end = number.rend();
+		deque<int>::reverse_iterator it = number.rbegin();
+
+		while (*it == 0 && it != end) {
+			exp++;
 			it++;
 		}
 
 		while (it != end) {
-			exp++;
+			mantis.push_front(*it);
 			it++;
 		}
 
