@@ -31,6 +31,13 @@ public:
 
 	//Operators
 	friend BigNumber operator+(BigNumber const &nr1, BigNumber const &nr2);
+	friend ostream& operator<<(ostream& stream, BigNumber const& nr1);
+	friend bool operator<(BigNumber const& nr1, BigNumber const& nr2);
+	friend bool operator>(BigNumber const& nr1, BigNumber const& nr2);
+	friend bool operator==(BigNumber const& nr1, BigNumber const& nr2);
+	friend bool operator!=(BigNumber const& nr1, BigNumber const& nr2);
+	friend bool operator<=(BigNumber const& nr1, BigNumber const& nr2);
+	friend bool operator>=(BigNumber const& nr1, BigNumber const& nr2);
 private:
 	deque <int> number;
 	deque <int> mantis;

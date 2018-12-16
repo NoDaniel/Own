@@ -160,12 +160,17 @@ void BigNumber::print_normal() const {
 		if (sign == '-' || sign == '+') {
 			cout << sign;
 		}
-		for (auto it = number.begin(); it != number.end(); it++) {
-			if (*it != 0) {
-				extra = false;
-			}
-			if (extra == false) {
-				cout << *it;
+		if (number.size() == 1 && number[0] == 0) {
+			cout << 0;
+		}
+		else {
+			for (auto it = number.begin(); it != number.end(); it++) {
+				if (*it != 0) {
+					extra = false;
+				}
+				if (extra == false) {
+					cout << *it;
+				}
 			}
 		}
 	}
@@ -180,10 +185,16 @@ void BigNumber::print_scientific() const{
 	}
 	
 	cout << sign;
-	for (auto it = mantis.begin(); it != mantis.end(); it++) {
-		cout << *it;
+	if (number.size() == 1 && number[0] == 0) {
+		cout << 0;
 	}
-	cout << "e" << exp;
+	else {
+		for (auto it = mantis.begin(); it != mantis.end(); it++) {
+			cout << *it;
+		}
+		cout << "e" << exp;
+	}
+
 
 
 	cout << endl;
@@ -229,7 +240,7 @@ void BigNumber::setsign(char sgn) {
 BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 
 	//Value to store which number is bigger
-	int bigger;
+	int bigger = 0;
 
 	//Get the bigger number, by checking, in order
 	//	-the largest number
@@ -270,6 +281,11 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 				it2++;
 			}
 		}
+	}
+
+	if (bigger == 0) {
+		sign = '+';
+		number.push_back(0);
 	}
 
 	//We have three cases for adding two numbers
@@ -368,7 +384,7 @@ BigNumber &BigNumber::addition(BigNumber& nr1, BigNumber& nr2) {
 
 BigNumber operator+(BigNumber const& nr1, BigNumber const& nr2){
 
-	int bigger;
+	int bigger = 0;
 	BigNumber nr;
 
 	//For logic, see addition function
@@ -405,6 +421,11 @@ BigNumber operator+(BigNumber const& nr1, BigNumber const& nr2){
 				it2++;
 			}
 		}
+	}
+
+	if (bigger == 0) {
+		nr.sign = '+';
+		nr.number.push_back(0);
 	}
 
 	if ((nr1.getsign() == '+' && nr2.getsign() == '+') || (nr1.getsign() == '-' && nr2.getsign() == '-')) {
@@ -496,4 +517,357 @@ BigNumber operator+(BigNumber const& nr1, BigNumber const& nr2){
 	}
 
 	return nr;
+}
+
+ostream& operator<<(ostream& stream, BigNumber const& nr1) {
+	bool extra = true;
+
+	if (nr1.exp == 0) {
+		//We check the validity of the number
+		if (nr1.valid == 0) {
+			stream << "Imposible to print an invalid number \n";
+		}
+		else {
+			//Get the sign
+			if (nr1.sign == '-' || nr1.sign == '+') {
+				stream << nr1.sign;
+			}
+			if (nr1.number.size() == 1 && nr1.number[0] == 0) {
+				stream << 0;
+			}
+			else {
+				for (auto it = nr1.number.begin(); it != nr1.number.end(); it++) {
+					if (*it != 0) {
+						extra = false;
+					}
+					if (extra == false) {
+						stream << *it;
+					}
+				}
+			}
+		}
+	}
+	else {
+		if (nr1.valid == 0) {
+			cout << "Imposible to print an invalid number \n";
+		}
+
+		cout <<nr1.sign;
+		if (nr1.number.size() == 1 && nr1.number[0] == 0) {
+			cout << 0;
+		}
+		else {
+			for (auto it = nr1.mantis.begin(); it != nr1.mantis.end(); it++) {
+				cout << *it;
+			}
+			cout << "e" << nr1.exp;
+		}
+
+		cout << endl;
+	}
+	
+
+	stream << endl;
+	return stream;
+};
+
+bool operator<(BigNumber const& nr1, BigNumber const& nr2) {
+
+	bool smaller = false;
+
+	if (nr1.sign == '-' && nr2.sign == '+') {
+		smaller = true;
+	}
+	else if (nr1.sign == '+' && nr2.sign == '-') {
+		smaller = false;
+	}
+	else {
+
+		if (nr1.number.size() > nr2.number.size()) {
+			smaller = false;
+		}
+		else if (nr1.number.size() < nr2.number.size()) {
+			smaller = true;
+		}
+		//	-which number has the biggest first
+		else if (nr1.number.size() == nr2.number.size()) {
+			if (nr1.number[0] > nr2.number[0]) {
+				smaller = false;
+			}
+			else if (nr1.number[0] < nr2.number[0]) {
+				smaller = true;
+			}
+			//	-if all of the above fails, the entire number
+			else if (nr1.number[0] == nr2.number[0]) {
+				auto it1 = nr1.number.begin();
+				auto it2 = nr2.number.begin();
+				while (it1 != nr1.number.end()) {
+					if (*it1 > *it2) {
+						smaller = false;
+						break;
+					}
+					else if (*it1 < *it2) {
+						smaller = true;
+						break;
+					}
+					it1++;
+					it2++;
+				}
+			}
+		}
+
+	}
+
+	return smaller;
+
+};
+
+bool operator>(BigNumber const& nr1, BigNumber const& nr2) {
+
+	bool bigger = false;
+
+	if (nr1.sign == '-' && nr2.sign == '+') {
+		bigger = false;
+	}
+	else if (nr1.sign == '+' && nr2.sign == '-') {
+		bigger = true;
+	}
+	else {
+		if (nr1.number.size() > nr2.number.size()) {
+			bigger = true;
+		}
+		else if (nr1.number.size() < nr2.number.size()) {
+			bigger = false;
+		}
+		//	-which number has the biggest first
+		else if (nr1.number.size() == nr2.number.size()) {
+			if (nr1.number[0] > nr2.number[0]) {
+				bigger = true;
+			}
+			else if (nr1.number[0] < nr2.number[0]) {
+				bigger = false;
+			}
+			//	-if all of the above fails, the entire number
+			else if (nr1.number[0] == nr2.number[0]) {
+				auto it1 = nr1.number.begin();
+				auto it2 = nr2.number.begin();
+				while (it1 != nr1.number.end()) {
+					if (*it1 > *it2) {
+						bigger = true;
+						break;
+					}
+					else if (*it1 < *it2) {
+						bigger = false
+							;
+						break;
+					}
+					it1++;
+					it2++;
+				}
+			}
+		}
+	}
+	
+
+	return bigger;
+
+};
+
+bool operator==(BigNumber const& nr1, BigNumber const& nr2) {
+
+	bool equal = true;
+
+	if ((nr1.sign == '-' && nr2.sign == '+') || (nr1.sign == '+' && nr2.sign == '-')) {
+		equal = false;
+	}
+	else {
+		auto it1 = nr1.number.begin();
+		auto it2 = nr2.number.begin();
+		while (it1 != nr1.number.end()) {
+			if (*it1 > *it2) {
+				equal = false;
+				break;
+			}
+			else if (*it1 < *it2) {
+				equal = false;
+				break;
+			}
+			it1++;
+			it2++;
+		}
+	}
+
+	return equal;
+}
+
+bool operator<=(BigNumber const& nr1, BigNumber const& nr2) {
+
+	bool equal = true;
+	bool smaller = false;
+
+	if ((nr1.sign == '-' && nr2.sign == '+') || (nr1.sign == '+' && nr2.sign == '-')) {
+		equal = false;
+	}
+	else {
+		auto it1 = nr1.number.begin();
+		auto it2 = nr2.number.begin();
+		while (it1 != nr1.number.end()) {
+			if (*it1 > *it2) {
+				equal = false;
+				break;
+			}
+			else if (*it1 < *it2) {
+				equal = false;
+				break;
+			}
+			it1++;
+			it2++;
+		}
+	}
+
+	if (nr1.sign == '-' && nr2.sign == '+') {
+		smaller = true;
+	}
+	else if (nr1.sign == '+' && nr2.sign == '-') {
+		smaller = false;
+	}
+	else {
+
+		if (nr1.number.size() > nr2.number.size()) {
+			smaller = false;
+		}
+		else if (nr1.number.size() < nr2.number.size()) {
+			smaller = true;
+		}
+		//	-which number has the biggest first
+		else if (nr1.number.size() == nr2.number.size()) {
+			if (nr1.number[0] > nr2.number[0]) {
+				smaller = false;
+			}
+			else if (nr1.number[0] < nr2.number[0]) {
+				smaller = true;
+			}
+			//	-if all of the above fails, the entire number
+			else if (nr1.number[0] == nr2.number[0]) {
+				auto it1 = nr1.number.begin();
+				auto it2 = nr2.number.begin();
+				while (it1 != nr1.number.end()) {
+					if (*it1 > *it2) {
+						smaller = false;
+						break;
+					}
+					else if (*it1 < *it2) {
+						smaller = true;
+						break;
+					}
+					it1++;
+					it2++;
+				}
+			}
+		}
+
+	}
+
+	return (equal || smaller);
+}
+
+bool operator>=(BigNumber const& nr1, BigNumber const& nr2) {
+
+	bool equal = true;
+	bool smaller = false;
+
+	if ((nr1.sign == '-' && nr2.sign == '+') || (nr1.sign == '+' && nr2.sign == '-')) {
+		equal = false;
+	}
+	else {
+		auto it1 = nr1.number.begin();
+		auto it2 = nr2.number.begin();
+		while (it1 != nr1.number.end()) {
+			if (*it1 > *it2) {
+				equal = false;
+				break;
+			}
+			else if (*it1 < *it2) {
+				equal = false;
+				break;
+			}
+			it1++;
+			it2++;
+		}
+	}
+
+	bool bigger = false;
+
+	if (nr1.sign == '-' && nr2.sign == '+') {
+		bigger = false;
+	}
+	else if (nr1.sign == '+' && nr2.sign == '-') {
+		bigger = true;
+	}
+	else {
+		if (nr1.number.size() > nr2.number.size()) {
+			bigger = true;
+		}
+		else if (nr1.number.size() < nr2.number.size()) {
+			bigger = false;
+		}
+		//	-which number has the biggest first
+		else if (nr1.number.size() == nr2.number.size()) {
+			if (nr1.number[0] > nr2.number[0]) {
+				bigger = true;
+			}
+			else if (nr1.number[0] < nr2.number[0]) {
+				bigger = false;
+			}
+			//	-if all of the above fails, the entire number
+			else if (nr1.number[0] == nr2.number[0]) {
+				auto it1 = nr1.number.begin();
+				auto it2 = nr2.number.begin();
+				while (it1 != nr1.number.end()) {
+					if (*it1 > *it2) {
+						bigger = true;
+						break;
+					}
+					else if (*it1 < *it2) {
+						bigger = false
+							;
+						break;
+					}
+					it1++;
+					it2++;
+				}
+			}
+		}
+	}
+
+
+	return (bigger || equal);
+
+}
+
+bool operator!=(BigNumber const& nr1, BigNumber const& nr2) {
+
+	bool equal = true;
+
+	if ((nr1.sign == '-' && nr2.sign == '+') || (nr1.sign == '+' && nr2.sign == '-')) {
+		equal = false;
+	}
+	else {
+		auto it1 = nr1.number.begin();
+		auto it2 = nr2.number.begin();
+		while (it1 != nr1.number.end()) {
+			if (*it1 > *it2) {
+				equal = false;
+				break;
+			}
+			else if (*it1 < *it2) {
+				equal = false;
+				break;
+			}
+			it1++;
+			it2++;
+		}
+	}
+
+	return !equal;
 }
