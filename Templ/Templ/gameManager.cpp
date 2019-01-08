@@ -1,32 +1,105 @@
 #include <iostream>
 #include "gameManager.h"
+#include "utility.h"
 
-template<typename T>
-void log(T t) {
-	std::clog << t;
+gameManagerControl::gameManagerControl(sf::RenderWindow& window) {
+
+	player1.setPlayer(window, 100.f, 7.f, 40.f, 300.f);
+	player2.setPlayer(window, 100.f, 7.f, 1160.f, 300.f);
+	_ball.setBall(window);
+	middleLine.setLine(window);
+	scoreTable.setScoreBoard(window);
 }
 
-template<typename T, typename ...Args>
-void log(T t, Args... arg) {
-	std::clog << t;
-	log(arg...);
+void gameManagerControl::draw(sf::RenderWindow& window) {
+	window.clear();
+	getPlayer1().drawPlayer(window);
+	getPlayer2().drawPlayer(window);
+	getScoreBoard().drawScoreBoard(window);
+	getMiddleLine().drawLine(window);
+	getBall().drawBall(window);
+	currentSpeedDisplay(window);
 }
 
-int customRand() {
+void gameManagerControl::currentSpeedDisplay(sf::RenderWindow& window) {
 
-	int deg;
-	int brench = rand()%2 + 1;
-	if (brench == 1) {
-		deg = rand() % 90 + 45;
+	std::string currentSpeed = std::to_string(ballSpeed);
+	std::string currentNumberBounces = std::to_string(10 - static_cast<int>(numberBounces));
+	currentSpeed.resize(4);
+	sf::Font arialFont;
+	sf::Text currentSpeedText;
+	sf::Text currentSpeedValue;
+	sf::Text numberBouncesText;
+	sf::Text numberBouncesText2;	
+	sf::Text numberBouncesValue;
+
+	if (!arialFont.loadFromFile("arial.ttf")) {
+		log("Error loading font");
+	}
+	currentSpeedText.setFont(arialFont);
+	currentSpeedText.setString("Ball speed : ");
+	currentSpeedText.setCharacterSize(20);
+	currentSpeedText.setFillColor(sf::Color::White);
+	currentSpeedText.setPosition(sf::Vector2f(5.f, 5.f));
+
+	currentSpeedValue.setFont(arialFont);
+	currentSpeedValue.setString(currentSpeed);
+	currentSpeedValue.setCharacterSize(20);
+	currentSpeedValue.setFillColor(sf::Color::White);
+	currentSpeedValue.setPosition(sf::Vector2f(5.f + currentSpeedText.getLocalBounds().width, 5.f));
+
+	numberBouncesText.setFont(arialFont);
+	numberBouncesText.setString("Increase speed in ");
+	numberBouncesText.setCharacterSize(20);
+	numberBouncesText.setFillColor(sf::Color::White);
+	numberBouncesText.setPosition(sf::Vector2f(930.f, 5.f));
+
+	numberBouncesValue.setFont(arialFont);
+	numberBouncesValue.setString(currentNumberBounces);
+	numberBouncesValue.setCharacterSize(20);
+	numberBouncesValue.setFillColor(sf::Color::White);
+	numberBouncesValue.setPosition(sf::Vector2f(930.f + numberBouncesText.getLocalBounds().width, 5.f));
+
+	numberBouncesText2.setFont(arialFont);
+	numberBouncesText2.setString(" bounces");
+	numberBouncesText2.setCharacterSize(20);
+	numberBouncesText2.setFillColor(sf::Color::White);
+	numberBouncesText2.setPosition(sf::Vector2f(930.f + numberBouncesText.getLocalBounds().width + numberBouncesValue.getLocalBounds().width, 5.f));
+
+	window.draw(currentSpeedText);
+	window.draw(currentSpeedValue);
+	window.draw(numberBouncesText);
+	window.draw(numberBouncesValue);
+	window.draw(numberBouncesText2);
+
+}
+
+void gameManagerControl::controlBallSpeed() {
+
+	if (ballSpeed <= 20) {
+		ballSpeed += 0.5;
+	}
+	else if (ballSpeed < 50) {
+		ballSpeed += 1;
+	}
+	else if (ballSpeed < 100) {
+		ballSpeed += 2;
 	}
 	else {
-		deg = rand() % 90 + 225;
+		ballSpeed += 5;
 	}
-
-	return deg;
 }
 
-void reset(sf::RenderWindow& window, gameManagerControl& gameManager) {
+void gameManagerControl::bounceControl() {
+
+	if (numberBounces == 10) {
+		numberBounces = 0;
+		ballSpeed += 0.5;
+	}
+
+}
+
+void gameManagerControl::restartCountdown(sf::RenderWindow& window) {
 
 	sf::Text text;
 	sf::Font font;
@@ -50,13 +123,13 @@ void reset(sf::RenderWindow& window, gameManagerControl& gameManager) {
 
 	//Clear
 	window.clear();
-	gameManager.draw(window);
+	draw(window);
 	window.display();
 
 	//Second 3
 	textStr = "3";
 	window.clear();
-	gameManager.draw(window);
+	draw(window);
 	window.draw(restartBox);
 	text.setString(textStr);
 	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2, text.getLocalBounds().top + text.getLocalBounds().height / 2);
@@ -68,7 +141,7 @@ void reset(sf::RenderWindow& window, gameManagerControl& gameManager) {
 	//Second 3
 	textStr = "2";
 	window.clear();
-	gameManager.draw(window);
+	draw(window);
 	window.draw(restartBox);
 	text.setString(textStr);
 	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2, text.getLocalBounds().top + text.getLocalBounds().height / 2);
@@ -76,11 +149,11 @@ void reset(sf::RenderWindow& window, gameManagerControl& gameManager) {
 	window.draw(text);
 	window.display();
 	Sleep(1000);
-	
+
 	//Second 1
 	textStr = "1";
 	window.clear();
-	gameManager.draw(window);
+	draw(window);
 	window.draw(restartBox);
 	text.setString(textStr);
 	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2, text.getLocalBounds().top + text.getLocalBounds().height / 2);
@@ -92,117 +165,12 @@ void reset(sf::RenderWindow& window, gameManagerControl& gameManager) {
 	//GO
 	textStr = "GO";
 	window.clear();
-	gameManager.draw(window);
+	draw(window);
 	window.draw(restartBox);
 	text.setString(textStr);
 	text.setOrigin(text.getLocalBounds().left + text.getLocalBounds().width / 2, text.getLocalBounds().top + text.getLocalBounds().height / 2);
-	text.setPosition(sf::Vector2f(restartBox.getPosition().x, restartBox.getPosition().y)); 
+	text.setPosition(sf::Vector2f(restartBox.getPosition().x, restartBox.getPosition().y));
 	window.draw(text);
 	window.display();
 	Sleep(1000);
-}
-
-void line::setLine(sf::RenderWindow& window) {
-
-	for (int i = 0; i <= window.getSize().y / 15; i++) {
-		sf::RectangleShape line;
-		vec.push_back(line);
-		vec[i].setSize(sf::Vector2f(10.f, 2.f));
-		vec[i].setOrigin(sf::Vector2f(vec[i].getSize().x / 2, vec[i].getSize().y / 2));
-		vec[i].setPosition(sf::Vector2f(600.f, i * 20.f));
-		vec[i].setRotation(90.f);
-		vec[i].setOrigin(vec[i].getSize().x / 2, vec[i].getSize().y / 2);
-	}
-
-}
-
-void line::drawLine(sf::RenderWindow& window) {
-
-	for (int i = 0; i <= window.getSize().y / 15; i++) {
-		window.draw(vec[i]);
-	}
-
-}
-
-void player::setPlayer(sf::RenderWindow& window, float sizex, float sizey, float posx, float posy) {
-	_player.setSize(sf::Vector2f(sizex, sizey));
-	_player.setPosition(sf::Vector2f(posx, posy));
-	_player.setRotation(90.f);
-	_player.setOrigin(50.f, 3.5f);
-}
-
-void player::drawPlayer(sf::RenderWindow& window) {
-	window.draw(_player);
-}
-
-bool player::checkCollision(sf::RectangleShape& ball) {
-
-	if (_player.getGlobalBounds().intersects(ball.getGlobalBounds())) {
-		return true;
-	}
-	return false;
-}
-
-void ball::setBall(sf::RenderWindow& window) {
-	_ball.setSize(sf::Vector2f(10.f, 10.f));
-	_ball.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2));
-	_ball.setOrigin(_ball.getSize().x / 2, _ball.getSize().y / 2);
-}
-
-void ball::drawBall(sf::RenderWindow& window) {
-	window.draw(_ball);
-}
-
-void score::setScore(sf::RenderWindow& window, float posx,	float posy, float fontSize) {
-
-	text = "0";
-
-	if (!font.loadFromFile("arial.ttf")) {
-		log("Error loading font");
-	}
-	score.setFont(font);
-	score.setString(text);
-	score.setCharacterSize(70);
-	score.setFillColor(sf::Color::White);
-	score.setOrigin(score.getLocalBounds().left + score.getLocalBounds().width / 2, score.getLocalBounds().top + score.getLocalBounds().height / 2);
-	score.setPosition(sf::Vector2f(posx, posy));
-}
-
-void score::addScore() {
-
-	text = std::to_string(stoi(text) + 1);
-	score.setString(text);
-
-}
-
-void score::drawScore(sf::RenderWindow& window) {
-	window.draw(score);
-}
-
-void scoreBoard::drawScoreBoard(sf::RenderWindow& window) {
-	player1Score.drawScore(window);
-	player2Score.drawScore(window);
-}
-
-void scoreBoard::setScoreBoard(sf::RenderWindow& window) {
-	player1Score.setScore(window, 500, 100, 70);
-	player2Score.setScore(window, 700, 100, 70);
-}
-
-gameManagerControl::gameManagerControl(sf::RenderWindow& window) {
-
-	player1.setPlayer(window, 100.f, 7.f, 40.f, 300.f);
-	player2.setPlayer(window, 100.f, 7.f, 1160.f, 300.f);
-	_ball.setBall(window);
-	middleLine.setLine(window);
-	scoreTable.setScoreBoard(window);
-}
-
-void gameManagerControl::draw(sf::RenderWindow& window) {
-	window.clear();
-	getPlayer1().drawPlayer(window);
-	getPlayer2().drawPlayer(window);
-	getScoreBoard().drawScoreBoard(window);
-	getMiddleLine().drawLine(window);
-	getBall().drawBall(window);
 }

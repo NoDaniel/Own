@@ -1,6 +1,7 @@
 ﻿  Source.cpp
-c:\users\daniel\source\repos\templ\templ\source.cpp(39): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\daniel\source\repos\templ\templ\source.cpp(52): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(44): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(131): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(144): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
@@ -9,7 +10,7 @@ c:\users\daniel\source\repos\templ\templ\source.cpp(52): warning C4244: 'argumen
           [
               T=float
           ]
-c:\users\daniel\source\repos\templ\templ\source.cpp(58): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(151): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
@@ -18,6 +19,40 @@ c:\users\daniel\source\repos\templ\templ\source.cpp(58): warning C4244: 'argumen
           [
               T=float
           ]
-c:\users\daniel\source\repos\templ\templ\source.cpp(82): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\daniel\source\repos\templ\templ\source.cpp(120): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Templ.vcxproj -> C:\Users\Daniel\source\repos\Templ\x64\Debug\Templ.exe
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(176): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(201): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(204): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(208): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\daniel\documents\github\own\templ\templ\source.cpp(211): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+  gameElements.cpp
+c:\users\daniel\documents\github\own\templ\templ\gameelements.cpp(6): warning C4018: '<=': signed/unsigned mismatch
+c:\users\daniel\documents\github\own\templ\templ\gameelements.cpp(20): warning C4018: '<=': signed/unsigned mismatch
+c:\users\daniel\documents\github\own\templ\templ\gameelements.cpp(47): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+  gameManager.cpp
+  utility.cpp
+  Generating Code...
+  Templ.vcxproj -> C:\Users\Daniel\Documents\GitHub\Own\Templ\x64\Debug\Templ.exe
